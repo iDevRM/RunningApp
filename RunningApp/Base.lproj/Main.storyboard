@@ -1,24 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GqZ-vf-c7b">
+    <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Navigation Controller-->
+        <scene sceneID="Ew5-bs-mWE">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <navigationController id="GqZ-vf-c7b" customClass="NavigationController" customModule="RunningApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZoZ-qC-B7O">
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="USG-ap-gff" kind="relationship" relationship="rootViewController" id="ZD6-Og-gXS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JEY-i1-WQK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-2117" y="110"/>
+        </scene>
+        <!--Run App-->
+        <scene sceneID="ANk-hg-rac">
+            <objects>
+                <viewController id="USG-ap-gff" customClass="StartRunViewController" customModule="RunningApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YHm-vg-5ri">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="GdO-da-9jt">
+                                <rect key="frame" x="0.0" y="88" width="428" height="838"/>
+                            </mapView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7e-8n-8aB" customClass="StartRunButton" customModule="RunningApp" customModuleProvider="target">
+                                <rect key="frame" x="20" y="812" width="388" height="50"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Udq-8X-E7A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="30"/>
+                                <state key="normal" title="Start Run">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startRunButtonTapped:" destination="USG-ap-gff" eventType="touchUpInside" id="vxA-fc-7Hy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You a total of 5 miles." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="DQs-pf-A3r">
+                                <rect key="frame" x="58" y="163" width="312" height="34.333333333333343"/>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="3Zr-nV-Lhj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="GdO-da-9jt" firstAttribute="top" secondItem="3Zr-nV-Lhj" secondAttribute="top" id="CEp-MD-eBP"/>
+                            <constraint firstItem="GdO-da-9jt" firstAttribute="leading" secondItem="3Zr-nV-Lhj" secondAttribute="leading" id="SSS-ya-jfV"/>
+                            <constraint firstItem="3Zr-nV-Lhj" firstAttribute="bottom" secondItem="t7e-8n-8aB" secondAttribute="bottom" constant="30" id="WgY-g5-e2u"/>
+                            <constraint firstItem="t7e-8n-8aB" firstAttribute="leading" secondItem="3Zr-nV-Lhj" secondAttribute="leading" constant="20" id="fdl-yL-SFC"/>
+                            <constraint firstItem="GdO-da-9jt" firstAttribute="bottom" secondItem="YHm-vg-5ri" secondAttribute="bottom" id="g7u-aQ-w7S"/>
+                            <constraint firstItem="3Zr-nV-Lhj" firstAttribute="trailing" secondItem="t7e-8n-8aB" secondAttribute="trailing" constant="20" id="k6p-DS-e80"/>
+                            <constraint firstItem="3Zr-nV-Lhj" firstAttribute="trailing" secondItem="GdO-da-9jt" secondAttribute="trailing" id="oyO-qK-tcT"/>
+                            <constraint firstItem="3Zr-nV-Lhj" firstAttribute="trailing" secondItem="DQs-pf-A3r" secondAttribute="trailing" constant="58" id="rPU-Xh-JN4"/>
+                            <constraint firstItem="DQs-pf-A3r" firstAttribute="top" secondItem="3Zr-nV-Lhj" secondAttribute="top" constant="75" id="xiK-Xy-93j"/>
+                            <constraint firstItem="DQs-pf-A3r" firstAttribute="leading" secondItem="3Zr-nV-Lhj" secondAttribute="leading" constant="58" id="ymB-E6-8eQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Run App" id="BOX-OF-1Ul">
+                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="ton-aL-C57">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="shareButtonTapped:" destination="USG-ap-gff" id="79B-Ge-ILW"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="SzX-Hn-v8I">
+                            <imageReference key="image" image="switch.2" catalog="system" symbolScale="large"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="convertButtonTapped:" destination="USG-ap-gff" id="3nM-ks-Zgu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="GdO-da-9jt" id="kdb-Av-6rz"/>
+                        <outlet property="startRunButton" destination="t7e-8n-8aB" id="zRC-VV-bI9"/>
+                        <outlet property="totalDistanceLabel" destination="DQs-pf-A3r" id="0FE-Cv-0da"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Czf-GQ-Vsh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1281.3084112149531" y="109.50323974082075"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="switch.2" catalog="system" width="128" height="109"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		1DDC141825801E8F00654A36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC141725801E8F00654A36 /* AppDelegate.swift */; };
 		1DDC141A25801E8F00654A36 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC141925801E8F00654A36 /* SceneDelegate.swift */; };
-		1DDC141C25801E8F00654A36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC141B25801E8F00654A36 /* ViewController.swift */; };
 		1DDC141F25801E8F00654A36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC141D25801E8F00654A36 /* Main.storyboard */; };
 		1DDC142125801E9000654A36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC142025801E9000654A36 /* Assets.xcassets */; };
 		1DDC142425801E9000654A36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC142225801E9000654A36 /* LaunchScreen.storyboard */; };
 		1DDC142F25801E9000654A36 /* RunningAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC142E25801E9000654A36 /* RunningAppTests.swift */; };
 		1DDC143A25801E9000654A36 /* RunningAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC143925801E9000654A36 /* RunningAppUITests.swift */; };
+		1DDC14542580259000654A36 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC14532580259000654A36 /* NavigationController.swift */; };
+		1DDC145C2580271E00654A36 /* StartRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC145B2580271E00654A36 /* StartRunViewController.swift */; };
+		1DDC146D25802FE200654A36 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC146C25802FE200654A36 /* LocationService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +40,6 @@
 		1DDC141425801E8F00654A36 /* RunningApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDC141725801E8F00654A36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DDC141925801E8F00654A36 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1DDC141B25801E8F00654A36 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1DDC141E25801E8F00654A36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1DDC142025801E9000654A36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1DDC142325801E9000654A36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +50,9 @@
 		1DDC143525801E9000654A36 /* RunningAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunningAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDC143925801E9000654A36 /* RunningAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningAppUITests.swift; sourceTree = "<group>"; };
 		1DDC143B25801E9000654A36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1DDC14532580259000654A36 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		1DDC145B2580271E00654A36 /* StartRunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRunViewController.swift; sourceTree = "<group>"; };
+		1DDC146C25802FE200654A36 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +103,12 @@
 		1DDC141625801E8F00654A36 /* RunningApp */ = {
 			isa = PBXGroup;
 			children = (
+				1DDC146B25802FB200654A36 /* LocationService */,
 				1DDC141725801E8F00654A36 /* AppDelegate.swift */,
 				1DDC141925801E8F00654A36 /* SceneDelegate.swift */,
-				1DDC141B25801E8F00654A36 /* ViewController.swift */,
+				1DDC144C2580203E00654A36 /* Model */,
+				1DDC144B2580202C00654A36 /* View */,
+				1DDC144A2580202100654A36 /* Controller */,
 				1DDC141D25801E8F00654A36 /* Main.storyboard */,
 				1DDC142025801E9000654A36 /* Assets.xcassets */,
 				1DDC142225801E9000654A36 /* LaunchScreen.storyboard */,
@@ -126,6 +133,37 @@
 				1DDC143B25801E9000654A36 /* Info.plist */,
 			);
 			path = RunningAppUITests;
+			sourceTree = "<group>";
+		};
+		1DDC144A2580202100654A36 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1DDC14532580259000654A36 /* NavigationController.swift */,
+				1DDC145B2580271E00654A36 /* StartRunViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1DDC144B2580202C00654A36 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1DDC144C2580203E00654A36 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1DDC146B25802FB200654A36 /* LocationService */ = {
+			isa = PBXGroup;
+			children = (
+				1DDC146C25802FE200654A36 /* LocationService.swift */,
+			);
+			path = LocationService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,7 +296,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DDC141C25801E8F00654A36 /* ViewController.swift in Sources */,
+				1DDC14542580259000654A36 /* NavigationController.swift in Sources */,
+				1DDC145C2580271E00654A36 /* StartRunViewController.swift in Sources */,
+				1DDC146D25802FE200654A36 /* LocationService.swift in Sources */,
 				1DDC141825801E8F00654A36 /* AppDelegate.swift in Sources */,
 				1DDC141A25801E8F00654A36 /* SceneDelegate.swift in Sources */,
 			);
