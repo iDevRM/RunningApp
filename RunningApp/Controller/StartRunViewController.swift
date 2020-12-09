@@ -16,6 +16,7 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
     
     var markedSpotAnnotation: MarkSpot?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         startRunButton.layer.cornerRadius = 8
@@ -24,9 +25,19 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
         checkLocationAuthStatus()
     }
     
+    var runStarted = false
+    
     @IBAction func startRunButtonTapped(_ sender: UIButton) {
-        guard let coordinates = LocationService.instance.currentLocation else { return }
-        setupAnnotation(coordinate:coordinates)
+        runStarted = !runStarted
+        
+        if runStarted {
+            startRunButton.setTitle("End Run", for: .normal)
+            setupAnnotation(coordinate: LocationService.instance.currentLocation!)
+        } else {
+            startRunButton.setTitle("Start Run", for: .normal)
+            LocationService.instance.locationManager.stopUpdatingLocation()
+            setupAnnotation(coordinate: RunRoute.arrayOfRouteCoordinates.removeLast())
+        }
     }
     
     @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
@@ -64,7 +75,14 @@ extension StartRunViewController {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { // set up how we want the mapview to display the annotation.
-        <#code#>
+        if let annotation = annotation as? MarkSpot {
+            let id = "pin"
+            let view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: id)
+            view.animatesDrop = true
+            view.pinTintColor = .red
+            return view
+        }
+        return nil
     }
 }
 
@@ -72,6 +90,7 @@ extension StartRunViewController {
 extension StartRunViewController: CustomerUserLocDelegate { // conforming VC to Protocol
     func UserLocationUpdated(location: CLLocation) { // receiving new location
         centerMapOnUserLocation(location: location.coordinate)
+        RunRoute.arrayOfRouteCoordinates.append(location.coordinate)
     }
     
     

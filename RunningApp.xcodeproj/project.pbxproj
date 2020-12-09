@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D3EF26E2581714A005138A6 /* RunRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3EF26D2581714A005138A6 /* RunRoute.swift */; };
 		1D5F403425813E4D000BCC37 /* MarkSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D5F403325813E4D000BCC37 /* MarkSpot.swift */; };
 		1DDC141825801E8F00654A36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC141725801E8F00654A36 /* AppDelegate.swift */; };
 		1DDC141A25801E8F00654A36 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC141925801E8F00654A36 /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D3EF26D2581714A005138A6 /* RunRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunRoute.swift; sourceTree = "<group>"; };
 		1D5F403325813E4D000BCC37 /* MarkSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkSpot.swift; sourceTree = "<group>"; };
 		1DDC141425801E8F00654A36 /* RunningApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RunningApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDC141725801E8F00654A36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				1D5F403325813E4D000BCC37 /* MarkSpot.swift */,
+				1D3EF26D2581714A005138A6 /* RunRoute.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DDC14542580259000654A36 /* NavigationController.swift in Sources */,
+				1D3EF26E2581714A005138A6 /* RunRoute.swift in Sources */,
 				1DDC145C2580271E00654A36 /* StartRunViewController.swift in Sources */,
 				1D5F403425813E4D000BCC37 /* MarkSpot.swift in Sources */,
 				1DDC146D25802FE200654A36 /* LocationService.swift in Sources */,
