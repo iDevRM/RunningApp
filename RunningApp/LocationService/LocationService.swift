@@ -27,7 +27,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         super.init()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        self.locationManager.distanceFilter = 50
+        self.locationManager.distanceFilter = 25
         self.locationManager.startUpdatingLocation()
     }
     

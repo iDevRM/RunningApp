@@ -15,12 +15,11 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView:            MKMapView! // Connect mapView to storyboard and set delegate.
     
     var markedSpotAnnotation: MarkSpot?
-    
+    var distance: DistanceCalculator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         startRunButton.layer.cornerRadius = 8
-        
         mapView.delegate = self // delegate set
         checkLocationAuthStatus()
     }
@@ -31,13 +30,18 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
         runStarted = !runStarted
         
         if runStarted {
+            mapView.removeAnnotations(mapView.annotations)
+            mapView.overlays.forEach({mapView.removeOverlay($0)})
             startRunButton.setTitle("End Run", for: .normal)
+            LocationService.instance.locationManager.startUpdatingLocation()
             setupAnnotation(coordinate: LocationService.instance.currentLocation!)
+            totalDistanceLabel.text = ""
         } else {
             startRunButton.setTitle("Start Run", for: .normal)
             LocationService.instance.locationManager.stopUpdatingLocation()
             setupAnnotation(coordinate: LocationService.instance.currentLocation!)
             getDirections(startCoor: RunRoute.arrayOfRouteCoordinates[0], stopCoor: LocationService.instance.currentLocation!)
+            displayDistanceRan()
         }
     }
     
@@ -45,8 +49,15 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func convertButtonTapped(_ sender: UIBarButtonItem) {
+        if let kilometers = distance?.totalDistance, !runStarted {
+            totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", kilometers / 1609)) miles."
+        }
     }
     
+    func displayDistanceRan() {
+        distance = DistanceCalculator(firstLocation: CLLocation(latitude: RunRoute.arrayOfRouteCoordinates[0].latitude, longitude: RunRoute.arrayOfRouteCoordinates[0].longitude), secondLocation: CLLocation(latitude: (LocationService.instance.currentLocation?.latitude)!, longitude: (LocationService.instance.currentLocation?.longitude)!))
+        totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", distance!.totalDistance / 1000)) kilometers."
+    }
 
 
 }
@@ -64,7 +75,7 @@ extension StartRunViewController {
     
     func centerMapOnUserLocation(location: CLLocationCoordinate2D) { // used to recenter the map to users location
         // first create a map region
-        let region =  MKCoordinateRegion(center: location, latitudinalMeters: 1000, longitudinalMeters: 1000) // lat and long is how much of the map you want to see when recentered, basically how zoomed in it is.
+        let region =  MKCoordinateRegion(center: location, latitudinalMeters: 500, longitudinalMeters: 500) // lat and long is how much of the map you want to see when recentered, basically how zoomed in it is.
         // second set map region of mapview
         self.mapView.setRegion(region, animated: true)
     }
@@ -92,13 +103,12 @@ extension StartRunViewController: CustomerUserLocDelegate { // conforming VC to 
     func UserLocationUpdated(location: CLLocation) { // receiving new location
         centerMapOnUserLocation(location: location.coordinate)
         RunRoute.arrayOfRouteCoordinates.append(location.coordinate)
-        
     }
-
 }
 
 extension StartRunViewController {
     func getDirections(startCoor:CLLocationCoordinate2D, stopCoor: CLLocationCoordinate2D) {
+        
         let request = MKDirections.Request()
         request.source = MKMapItem(placemark: MKPlacemark(coordinate: startCoor))
         request.destination = MKMapItem(placemark: MKPlacemark(coordinate: stopCoor))
