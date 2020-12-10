@@ -32,6 +32,7 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
         if runStarted {
             mapView.removeAnnotations(mapView.annotations)
             mapView.overlays.forEach({mapView.removeOverlay($0)})
+            RunRoute.arrayOfRouteCoordinates.removeAll()
             startRunButton.setTitle("End Run", for: .normal)
             LocationService.instance.locationManager.startUpdatingLocation()
             setupAnnotation(coordinate: LocationService.instance.currentLocation!)
@@ -40,8 +41,9 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
             startRunButton.setTitle("Start Run", for: .normal)
             LocationService.instance.locationManager.stopUpdatingLocation()
             setupAnnotation(coordinate: LocationService.instance.currentLocation!)
-            getDirections(startCoor: RunRoute.arrayOfRouteCoordinates[0], stopCoor: LocationService.instance.currentLocation!)
+            getDirections(startCoor: RunRoute.arrayOfRouteCoordinates[0], stopCoor: RunRoute.arrayOfRouteCoordinates.last!)
             displayDistanceRan()
+            
         }
     }
     
@@ -117,18 +119,25 @@ extension StartRunViewController {
         let directions = MKDirections(request: request)
         directions.calculate { (response, error) in
             guard let route = response?.routes.first else { return }
-            self.mapView.addOverlay(route.polyline)
-            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 200, left: 50, bottom: 50, right: 50), animated: true)
+            self.createPolyline(mapView: self.mapView)
+            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 200, left: 50, bottom: 200, right: 50), animated: true)
         }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+      
+        
         let directionsRenderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         directionsRenderer.strokeColor = .systemBlue
         directionsRenderer.lineWidth = 5
         directionsRenderer.alpha = 0.85
         
         return directionsRenderer
+    }
+    
+    func createPolyline(mapView: MKMapView) {
+        let geodesic = MKGeodesicPolyline(coordinates: RunRoute.arrayOfRouteCoordinates, count: RunRoute.arrayOfRouteCoordinates.count)
+        mapView.addOverlay(geodesic)
     }
     
 }
