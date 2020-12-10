@@ -36,7 +36,8 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
         } else {
             startRunButton.setTitle("Start Run", for: .normal)
             LocationService.instance.locationManager.stopUpdatingLocation()
-            setupAnnotation(coordinate: RunRoute.arrayOfRouteCoordinates.removeLast())
+            setupAnnotation(coordinate: LocationService.instance.currentLocation!)
+            getDirections(startCoor: RunRoute.arrayOfRouteCoordinates[0], stopCoor: LocationService.instance.currentLocation!)
         }
     }
     
@@ -91,9 +92,33 @@ extension StartRunViewController: CustomerUserLocDelegate { // conforming VC to 
     func UserLocationUpdated(location: CLLocation) { // receiving new location
         centerMapOnUserLocation(location: location.coordinate)
         RunRoute.arrayOfRouteCoordinates.append(location.coordinate)
+        
+    }
+
+}
+
+extension StartRunViewController {
+    func getDirections(startCoor:CLLocationCoordinate2D, stopCoor: CLLocationCoordinate2D) {
+        let request = MKDirections.Request()
+        request.source = MKMapItem(placemark: MKPlacemark(coordinate: startCoor))
+        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: stopCoor))
+        request.transportType = .walking
+        
+        let directions = MKDirections(request: request)
+        directions.calculate { (response, error) in
+            guard let route = response?.routes.first else { return }
+            self.mapView.addOverlay(route.polyline)
+            self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 200, left: 50, bottom: 50, right: 50), animated: true)
+        }
     }
     
-    
-    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let directionsRenderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+        directionsRenderer.strokeColor = .systemBlue
+        directionsRenderer.lineWidth = 5
+        directionsRenderer.alpha = 0.85
+        
+        return directionsRenderer
+    }
     
 }
