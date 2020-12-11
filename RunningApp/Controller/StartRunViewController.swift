@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import MessageUI
 
 class StartRunViewController: UIViewController, MKMapViewDelegate {
 
@@ -16,15 +17,20 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
     
     var markedSpotAnnotation: MarkSpot?
     var distance: DistanceCalculator?
+    var snapshot = MKMapSnapshotter()
+    var snapshotOptions = MKMapSnapshotter.Options()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         startRunButton.layer.cornerRadius = 8
         mapView.delegate = self // delegate set
         checkLocationAuthStatus()
+        snapshotOptions.size = mapView.frame.size
+        snapshotOptions.scale = UIScreen.main.scale
     }
     
     var runStarted = false
+    var conversionSwitched = false
     
     @IBAction func startRunButtonTapped(_ sender: UIButton) {
         runStarted = !runStarted
@@ -37,35 +43,47 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
             LocationService.instance.locationManager.startUpdatingLocation()
             setupAnnotation(coordinate: LocationService.instance.currentLocation!)
             totalDistanceLabel.text = ""
+            conversionSwitched = false
         } else {
             startRunButton.setTitle("Start Run", for: .normal)
             LocationService.instance.locationManager.stopUpdatingLocation()
             setupAnnotation(coordinate: LocationService.instance.currentLocation!)
             getDirections(startCoor: RunRoute.arrayOfRouteCoordinates[0], stopCoor: RunRoute.arrayOfRouteCoordinates.last!)
             displayDistanceRan()
-            
+            totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", distance!.totalDistance / 1000)) kilometers."
+            conversionSwitched = true
         }
     }
     
     @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
+    
+       
+        let activityController = UIActivityViewController(activityItems: [UIImage],
+                                                          applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
     }
     
     @IBAction func convertButtonTapped(_ sender: UIBarButtonItem) {
-        if let kilometers = distance?.totalDistance, !runStarted {
-            totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", kilometers / 1609)) miles."
+        if let distance = distance?.totalDistance {
+            if !runStarted, !conversionSwitched {
+                totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", distance / 1000)) kilometers."
+                conversionSwitched = true
+            } else {
+                totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", distance / 1609)) miles."
+                conversionSwitched = false
+            }
         }
     }
     
     func displayDistanceRan() {
         distance = DistanceCalculator(firstLocation: CLLocation(latitude: RunRoute.arrayOfRouteCoordinates[0].latitude, longitude: RunRoute.arrayOfRouteCoordinates[0].longitude), secondLocation: CLLocation(latitude: (LocationService.instance.currentLocation?.latitude)!, longitude: (LocationService.instance.currentLocation?.longitude)!))
-        totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", distance!.totalDistance / 1000)) kilometers."
     }
-
-
 }
+
 
 // The function that checks if we have authorization to get location and if not then request it.
 extension StartRunViewController {
+    
     func checkLocationAuthStatus() {
         if LocationService.instance.locationManager.authorizationStatus == .authorizedWhenInUse {
             self.mapView.showsUserLocation = true // once we have auth this will show the blue dot on map to indicate user location.
@@ -125,19 +143,17 @@ extension StartRunViewController {
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-      
-        
         let directionsRenderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         directionsRenderer.strokeColor = .systemBlue
         directionsRenderer.lineWidth = 5
         directionsRenderer.alpha = 0.85
-        
         return directionsRenderer
     }
     
     func createPolyline(mapView: MKMapView) {
-        let geodesic = MKGeodesicPolyline(coordinates: RunRoute.arrayOfRouteCoordinates, count: RunRoute.arrayOfRouteCoordinates.count)
-        mapView.addOverlay(geodesic)
+        let polyline = MKGeodesicPolyline(coordinates: RunRoute.arrayOfRouteCoordinates, count: RunRoute.arrayOfRouteCoordinates.count)
+        mapView.addOverlay(polyline)
     }
-    
 }
+
+
