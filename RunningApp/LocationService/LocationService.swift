@@ -12,7 +12,6 @@ protocol CustomerUserLocDelegate { // Creating this delegate to pass new locatio
     func UserLocationUpdated(location: CLLocation)
 }
 
-
 //Create a location service that handles getting location and managing the accuracy of the location.
 class LocationService: NSObject, CLLocationManagerDelegate {
     
@@ -27,7 +26,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
         super.init()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        self.locationManager.distanceFilter = 15
+        self.locationManager.distanceFilter = 1
         self.locationManager.startUpdatingLocation()
     }
     

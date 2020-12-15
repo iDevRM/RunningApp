@@ -17,7 +17,6 @@
 		1DDC142425801E9000654A36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1DDC142225801E9000654A36 /* LaunchScreen.storyboard */; };
 		1DDC142F25801E9000654A36 /* RunningAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC142E25801E9000654A36 /* RunningAppTests.swift */; };
 		1DDC143A25801E9000654A36 /* RunningAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC143925801E9000654A36 /* RunningAppUITests.swift */; };
-		1DDC14542580259000654A36 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC14532580259000654A36 /* NavigationController.swift */; };
 		1DDC145C2580271E00654A36 /* StartRunViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC145B2580271E00654A36 /* StartRunViewController.swift */; };
 		1DDC146D25802FE200654A36 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DDC146C25802FE200654A36 /* LocationService.swift */; };
 /* End PBXBuildFile section */
@@ -56,7 +55,6 @@
 		1DDC143525801E9000654A36 /* RunningAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunningAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DDC143925801E9000654A36 /* RunningAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningAppUITests.swift; sourceTree = "<group>"; };
 		1DDC143B25801E9000654A36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1DDC14532580259000654A36 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		1DDC145B2580271E00654A36 /* StartRunViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRunViewController.swift; sourceTree = "<group>"; };
 		1DDC146C25802FE200654A36 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,7 +142,6 @@
 		1DDC144A2580202100654A36 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1DDC14532580259000654A36 /* NavigationController.swift */,
 				1DDC145B2580271E00654A36 /* StartRunViewController.swift */,
 			);
 			path = Controller;
@@ -306,7 +303,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D46BC6A25829DA500C4E84D /* DistanceCalculator.swift in Sources */,
-				1DDC14542580259000654A36 /* NavigationController.swift in Sources */,
 				1D3EF26E2581714A005138A6 /* RunRoute.swift in Sources */,
 				1DDC145C2580271E00654A36 /* StartRunViewController.swift in Sources */,
 				1D5F403425813E4D000BCC37 /* MarkSpot.swift in Sources */,

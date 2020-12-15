@@ -7,9 +7,10 @@
 
 import UIKit
 import MapKit
-import MessageUI
+
 
 class StartRunViewController: UIViewController, MKMapViewDelegate {
+    
 
     @IBOutlet weak var totalDistanceLabel: UILabel!
     @IBOutlet weak var startRunButton:     UIButton!
@@ -17,16 +18,12 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
     
     var markedSpotAnnotation: MarkSpot?
     var distance: DistanceCalculator?
-    var snapshot = MKMapSnapshotter()
-    var snapshotOptions = MKMapSnapshotter.Options()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         startRunButton.layer.cornerRadius = 8
         mapView.delegate = self // delegate set
         checkLocationAuthStatus()
-        snapshotOptions.size = mapView.frame.size
-        snapshotOptions.scale = UIScreen.main.scale
     }
     
     var runStarted = false
@@ -48,19 +45,25 @@ class StartRunViewController: UIViewController, MKMapViewDelegate {
             startRunButton.setTitle("Start Run", for: .normal)
             LocationService.instance.locationManager.stopUpdatingLocation()
             setupAnnotation(coordinate: LocationService.instance.currentLocation!)
-            getDirections(startCoor: RunRoute.arrayOfRouteCoordinates[0], stopCoor: RunRoute.arrayOfRouteCoordinates.last!)
-            displayDistanceRan()
-            totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", distance!.totalDistance / 1000)) kilometers."
+            if RunRoute.arrayOfRouteCoordinates.last != nil {
+                getDirections(startCoor: RunRoute.arrayOfRouteCoordinates[0], stopCoor: RunRoute.arrayOfRouteCoordinates.last!)
+                displayDistanceRan()
+                totalDistanceLabel.text = "You ran a total of \(String(format: "%.2f", distance!.totalDistance / 1000)) kilometers."
+            }
             conversionSwitched = true
         }
     }
     
     @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
-    
-       
-        let activityController = UIActivityViewController(activityItems: [UIImage],
-                                                          applicationActivities: nil)
-        present(activityController, animated: true, completion: nil)
+        let bounds = UIScreen.main.bounds
+        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0.0)
+        view.drawHierarchy(in: bounds, afterScreenUpdates: false)
+        
+        let img = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let activityController = UIActivityViewController(activityItems: [img!], applicationActivities: nil)
+        present(activityController, animated: true)
     }
     
     @IBAction func convertButtonTapped(_ sender: UIBarButtonItem) {
